@@ -78,9 +78,7 @@ public class MainActivityTest {
                 .atPosition(0)
                 .check(matches(withText("Edmonton")));
     }
-
-
-    // Add these to your existing MainActivityTest class
+    
 
     @Test
     public void navigatesToShowActivity(){
