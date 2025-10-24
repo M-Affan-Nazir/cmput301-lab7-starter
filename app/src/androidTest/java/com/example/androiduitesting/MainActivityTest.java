@@ -80,5 +80,48 @@ public class MainActivityTest {
     }
 
 
+    // Add these to your existing MainActivityTest class
 
+    @Test
+    public void navigatesToShowActivity(){
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Calgary"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onData(is(instanceOf(String.class)))
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+        onView(withId(R.id.tvCityName)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void showsCorrectCityName(){
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onData(is(instanceOf(String.class)))
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+        onView(withId(R.id.tvCityName)).check(matches(withText("Edmonton")));
+    }
+
+    @Test
+    public void backButtonReturnsToMain(){
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Vancouver"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onData(is(instanceOf(String.class)))
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+        onView(withId(R.id.btnBack)).perform(click());
+        onView(withId(R.id.city_list)).check(matches(isDisplayed()));
+    }
 }
